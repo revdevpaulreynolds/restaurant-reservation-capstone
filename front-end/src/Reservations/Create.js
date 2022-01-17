@@ -10,9 +10,23 @@ function ReservationCreate() {
     const [createError, setCreateError] = useState(null);
     const history = useHistory();
 
-    
+    // Versions of error handling that assume an array of errors
+    // if (checkTuesday(checkDate)) {
+    //     setCreateError((prevState) => ([
+    //         ...prevState,
+    //         {message: "We are closed Tuesdays"}
+    //     ])
+    //     )
+    // }
+    // if (isDatePast(checkDate)) {
+    //     setCreateError((prevState) => ([
+    //         ...prevState,
+    //         {message: "Please select a date in the future"}
+    //     ])
+    //     )
+    // }
 
-    async function submitHandler(reservation) {
+    function submitHandler(reservation) {
         reservation.people = Number(reservation.people);
         let checkDate = `${reservation.reservation_date} ${reservation.reservation_time}`
         if (checkTuesday(checkDate)) {
@@ -29,10 +43,10 @@ function ReservationCreate() {
             })
             )
         }
-        await createReservation(reservation);
-        history.push(`/dashboard?date=${reservation.reservation_date}`)
+        // !createError && createReservation(reservation)
+        //     .catch(setCreateError);
+        // history.push(`/dashboard?date=${reservation.reservation_date}`)
     }
-    console.log(createError);
 
     const cancel = () => history.goBack();
     
