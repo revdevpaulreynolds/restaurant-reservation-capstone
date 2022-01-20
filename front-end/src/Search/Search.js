@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { search } from "../utils/api";
-import { formatAsTime } from "../utils/date-time";
 import ErrorAlert from "../layout/ErrorAlert";
+import DisplaySearch from "./DisplaySearch";
 
 function Search() {
   const [searchNumber, setSearchNumber] = useState("");
@@ -20,41 +20,6 @@ function Search() {
     if (!results.length) setNotFoundError({ message: "No reservations found" });
     setSearchResults(results);
   }
-
-  let tableData;
-
-  if (searchResults) {
-    tableData = searchResults.map((result) => {
-      return (
-        <tr key={result.reservation_id}>
-          <td>{result.reservation_id}</td>
-          <td>{result.first_name}</td>
-          <td>{result.last_name}</td>
-          <td>{result.mobile_number}</td>
-          <td>{formatAsTime(result.reservation_time)}</td>
-          <td>{result.people}</td>
-          <td>{result.status}</td>
-        </tr>
-      );
-    });
-  }
-
-  let displaySearchResults = (
-    <table className="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First Name</th>
-          <th scope="col">Last Name</th>
-          <th scope="col">Mobile number</th>
-          <th scope="col">Reservation time</th>
-          <th scope="col">Party size</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>{tableData}</tbody>
-    </table>
-  );
 
   return (
     <div>
@@ -78,7 +43,7 @@ function Search() {
         </form>
       </div>
       <ErrorAlert error={notFoundError} />
-      {searchResults.length > 0 ? displaySearchResults : null}
+      <DisplaySearch searchResults={searchResults}/>
     </div>
   );
 }

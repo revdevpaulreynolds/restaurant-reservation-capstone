@@ -8,12 +8,6 @@ async function checkQuery(req, res, next) {
   const {mobile_number} = req.query;
   if (mobile_number) {
     const data = await service.search(mobile_number);
-    if (!data) {
-      next({
-        status: 404,
-        message: `No reservations found`
-      })
-    }
     return res.status(200).json({data})
   }
   next();
