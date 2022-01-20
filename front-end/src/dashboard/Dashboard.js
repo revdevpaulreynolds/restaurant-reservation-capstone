@@ -71,7 +71,7 @@ function Dashboard({ date }) {
         <td>{reservation.mobile_number}</td>
         <td>{formatAsTime(reservation.reservation_time)}</td>
         <td>{reservation.people}</td>
-        <td>{reservation.status}</td>
+        <td data-reservation-id-status={reservation.reservation_id}>{reservation.status}</td>
         <td>
           {reservation.status === "booked" ? (
             <a
