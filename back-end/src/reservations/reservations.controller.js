@@ -54,7 +54,7 @@ async function validateExistingReservation(req, res, next) {
   const {reservation_id} = req.params;
   const exists = await service.read(reservation_id);
   if (!exists) next({status: 404, message: `${reservation_id} does not exist`});
-  const acceptableStatuses = ["booked", "seated", "finished"];
+  const acceptableStatuses = ["booked", "seated", "finished", "cancelled"];
   if (!acceptableStatuses.includes(data.status)) errors.push(`${data.status} not allowed`)
   if (exists.status == "finished") errors.push("A finished reservation cannot be updated")
   

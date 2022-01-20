@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { today } from "../utils/date-time"
+import {useHistory} from "react-router-dom";
 
 function ReservationForm({
   submitHandler,
-  onCancel,
   initialState = {
     first_name: "",
     last_name: "",
@@ -15,6 +15,7 @@ function ReservationForm({
   },
 }) {
   const [reservation, setReservation] = useState(initialState);
+  const history = useHistory();
 
   function changeHandler({ target: { name, value } }) {
     setReservation((prevState) => ({
@@ -121,7 +122,7 @@ function ReservationForm({
           <button
             type="button"
             className="btn btn-secondary mr-2"
-            onClick={onCancel}
+            onClick={() => history.goBack()}
           >
             Cancel
           </button>

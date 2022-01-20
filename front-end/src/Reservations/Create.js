@@ -16,13 +16,12 @@ function ReservationCreate() {
         .catch(setCreateError);
   }
 
-  const cancel = () => history.goBack();
 
   return (
     <div>
       <h1>Create a new reservation</h1>
       <ErrorAlert error={createError} />
-      <ReservationForm onCancel={cancel} submitHandler={submitHandler} />
+      <ReservationForm submitHandler={submitHandler} />
     </div>
   );
 }

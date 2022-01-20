@@ -1,4 +1,5 @@
 import { formatAsTime } from "../utils/date-time";
+import {Link} from "react-router-dom";
 
 function DisplaySearch({ searchResults }) {
   let tableData;
@@ -14,6 +15,13 @@ function DisplaySearch({ searchResults }) {
           <td>{formatAsTime(result.reservation_time)}</td>
           <td>{result.people}</td>
           <td>{result.status}</td>
+          <td> {result.status === "booked" ? (
+                <Link to={{
+                    pathname: `/reservations/${result.reservation_id}/edit`,
+                    state: result
+                }}><button className="btn btn-secondary">Edit</button></Link>
+
+            ) : null }</td>
         </tr>
       );
     });
@@ -30,6 +38,7 @@ function DisplaySearch({ searchResults }) {
           <th scope="col">Reservation time</th>
           <th scope="col">Party size</th>
           <th scope="col">Status</th>
+          <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>{tableData}</tbody>

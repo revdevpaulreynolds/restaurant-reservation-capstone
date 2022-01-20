@@ -45,20 +45,24 @@ function Seat() {
   return (
     <div>
       <ErrorAlert error={error} />
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className>
+        <div className="row">
+
         <label htmlFor="table_id">
           Please select a table
           <select
             onChange={handleChange}
-            className="form-select form-select-lg"
+            className="form-control form-select form-select-lg"
             id="table_id"
             name="table_id"
+            multiple
             value={formData.table_id}
           >
             <option value="">--Select a table--</option>
             {tables.length && tableSelect}
           </select>
         </label>
+        </div>
         <button className="btn btn-secondary" onClick={() => history.goBack()}>
           Cancel
         </button>
