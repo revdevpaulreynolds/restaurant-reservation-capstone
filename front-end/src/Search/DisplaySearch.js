@@ -1,5 +1,6 @@
 import { formatAsTime } from "../utils/date-time";
 import {Link} from "react-router-dom";
+import CancelButton from "../Reservations/CancelButton"
 
 function DisplaySearch({ searchResults }) {
   let tableData;
@@ -22,6 +23,9 @@ function DisplaySearch({ searchResults }) {
                 }}><button className="btn btn-secondary">Edit</button></Link>
 
             ) : null }</td>
+            <td>
+                <CancelButton reservation_id={result.reservation_id}/>
+            </td>
         </tr>
       );
     });
@@ -39,6 +43,7 @@ function DisplaySearch({ searchResults }) {
           <th scope="col">Party size</th>
           <th scope="col">Status</th>
           <th scope="col">Edit</th>
+          <th scope="col">Cancel</th>
         </tr>
       </thead>
       <tbody>{tableData}</tbody>

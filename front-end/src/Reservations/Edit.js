@@ -1,15 +1,16 @@
 import ReservationForm from "./Form";
 import ErrorAlert from "../layout/ErrorAlert";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import React, { useState } from "react";
 import { formatAsDate } from "../utils/date-time";
-import { getReservation } from "../utils/api";
+import { getReservation, updateReservation } from "../utils/api";
 
 function Edit() {
   const { reservation_id } = useParams();
   const [reservation, setReservation] = useState(null);
   const [reservationsError, setReservationsError] = useState(null);
+  const history = useHistory();
 
   useEffect(loadReservation, [reservation_id]);
 
@@ -22,10 +23,12 @@ function Edit() {
     return () => ac.abort();
   }
 
-  function submitHandler(updatedReservation) {
+  async function submitHandler(updatedReservation) {
     updatedReservation.mobile_number = (updatedReservation.mobile_number).replace(/[^0-9.]/g, '')
     updatedReservation.people = Number(updatedReservation.people);
-    console.log(updatedReservation);
+    await updateReservation(updatedReservation)
+        .then(() => history.push(`/dashboard?date=${updatedReservation.reservation_date}`))
+        .catch(setReservationsError)
   }
 
   if (reservation) {
