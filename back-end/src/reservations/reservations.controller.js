@@ -5,17 +5,16 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const service = require("./reservations.service")
 
 async function checkQuery(req, res, next) {
-  // const {mobile_phone} = req.query;
-  if (req.query.mobile_phone) {
-    const {mobile_phone} = req.query;
-    const data = await service.search(mobile_phone);
+  const {mobile_number} = req.query;
+  if (mobile_number) {
+    const data = await service.search(mobile_number);
     if (!data) {
       next({
         status: 404,
-        message: `${mobile_phone} not found`
+        message: `No reservations found`
       })
     }
-    res.status(200).json({data})
+    return res.status(200).json({data})
   }
   next();
 }
