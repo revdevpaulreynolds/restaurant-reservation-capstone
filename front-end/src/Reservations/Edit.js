@@ -28,7 +28,6 @@ function Edit() {
     console.log(updatedReservation);
   }
 
-
   if (reservation) {
       reservation.reservation_date = formatAsDate(reservation.reservation_date);
   }
