@@ -48,13 +48,19 @@ async function updateStatus(req, res) {
   res.status(200).json({data})
 }
 
+async function update(req, res) {
+  const {data} = req.body;
+  const result = await service.updateReservation(data);
+  res.status(200).json({data: result})
+}
+
 async function validateExistingReservation(req, res, next) {
   let errors = [];
   const {data} = req.body;
   const {reservation_id} = req.params;
   const exists = await service.read(reservation_id);
   if (!exists) next({status: 404, message: `${reservation_id} does not exist`});
-  const acceptableStatuses = ["booked", "seated", "finished"];
+  const acceptableStatuses = ["booked", "seated", "finished", "cancelled"];
   if (!acceptableStatuses.includes(data.status)) errors.push(`${data.status} not allowed`)
   if (exists.status == "finished") errors.push("A finished reservation cannot be updated")
   
@@ -190,4 +196,5 @@ module.exports = {
   create: [validateNewReservation, asyncErrorBoundary(create)],
   read: [asyncErrorBoundary(reservationExists), read],
   updateStatus: [asyncErrorBoundary(validateExistingReservation), asyncErrorBoundary(updateStatus)],
+  update: [validateNewReservation, asyncErrorBoundary(reservationExists), asyncErrorBoundary(update)], // still need to add update function here
 };

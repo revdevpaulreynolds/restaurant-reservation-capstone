@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import { listReservations, updateStatus } from "../utils/api";
+import { useHistory, Link } from "react-router-dom";
+import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import {
   formatAsTime,
@@ -11,6 +11,7 @@ import {
 } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import TableList from "./TableList";
+import CancelButton from "../Reservations/CancelButton";
 
 /**
  * Defines the dashboard page.
@@ -54,15 +55,13 @@ function Dashboard({ date }) {
     history.push(`/dashboard?date=${dateToMove}`);
   }
 
-  async function changeStatus(reservation_id) {
-    await updateStatus(reservation_id, "seated");
-  }
-
-  reservations.filter((reservation) => {
-    return reservation.status !== "finished";
+  let result = reservations.filter((reservation) => {
+    return (
+      reservation.status !== "finished" && reservation.status !== "cancelled"
+    );
   });
 
-  const display = reservations.map((reservation) => {
+  const display = result.map((reservation) => {
     return (
       <tr key={reservation.reservation_id}>
         <td>{reservation.reservation_id}</td>
@@ -71,17 +70,34 @@ function Dashboard({ date }) {
         <td>{reservation.mobile_number}</td>
         <td>{formatAsTime(reservation.reservation_time)}</td>
         <td>{reservation.people}</td>
-        <td data-reservation-id-status={reservation.reservation_id}>{reservation.status}</td>
+        <td data-reservation-id-status={reservation.reservation_id}>
+          {reservation.status}
+        </td>
         <td>
           {reservation.status === "booked" ? (
             <a
-              onClick={() => changeStatus(reservation.reservation_id)}
+              // onClick={() => changeStatus(reservation.reservation_id)}
               className="btn btn-primary"
               href={`/reservations/${reservation.reservation_id}/seat`}
             >
               Seat
             </a>
           ) : null}
+        </td>
+        <td>
+          {" "}
+          {reservation.status === "booked" ? (
+            <Link
+              to={{
+                pathname: `/reservations/${reservation.reservation_id}/edit`,
+              }}
+            >
+              <button className="btn btn-secondary">Edit</button>
+            </Link>
+          ) : null}
+        </td>
+        <td>
+          <CancelButton reservation_id={reservation.reservation_id} />
         </td>
       </tr>
     );
@@ -122,6 +138,8 @@ function Dashboard({ date }) {
             <th scope="col">Party size</th>
             <th scope="col">Status</th>
             <th scope="col">Seat party</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Cancel</th>
           </tr>
         </thead>
         <tbody>{reservations.length > 0 && display}</tbody>

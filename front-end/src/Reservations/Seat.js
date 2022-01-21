@@ -1,14 +1,23 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { listTables, seatReservation } from "../utils/api";
+import { listTables, seatReservation, getReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 
 function Seat() {
   const [tables, setTables] = useState([]);
   const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({ table_id: "" });
+  const [formData, setFormData] = useState({ table_id: null });
+  const [reservation, setReservation] = useState(null);
 
   const { reservation_id } = useParams();
+
+  function loadReservation() {
+    const ac = new AbortController();
+    getReservation(reservation_id).then(setReservation).catch(setError);
+    return () => ac.abort();
+  }
+
+  useEffect(loadReservation, [reservation_id])
 
   const history = useHistory();
 
@@ -45,27 +54,38 @@ function Seat() {
   return (
     <div>
       <ErrorAlert error={error} />
+        {reservation && <h3>Reservation {reservation.reservation_id} has {reservation.people} guest{reservation.people > 1 && 's'}.</h3>}
+        <div >
+
       <form onSubmit={submitHandler}>
+        <div className="form-group">
         <label htmlFor="table_id">
           Please select a table
           <select
             onChange={handleChange}
-            className="form-select form-select-lg"
+            className="form-control form-select form-select-lg"
             id="table_id"
             name="table_id"
-            value={formData.table_id}
+            multiple
+            size={tables.length + 1}
           >
             <option value="">--Select a table--</option>
             {tables.length && tableSelect}
           </select>
         </label>
+        </div>
         <button className="btn btn-secondary" onClick={() => history.goBack()}>
           Cancel
         </button>
-        <button type="submit" className="btn btn-primary">
+        <button 
+          type="submit" 
+          className="btn btn-primary"
+          disabled={!formData.table_id}
+        >
           Submit
         </button>
       </form>
+        </div>
     </div>
   );
 }

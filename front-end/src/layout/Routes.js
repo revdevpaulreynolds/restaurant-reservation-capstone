@@ -6,7 +6,8 @@ import ReservationCreate from "../Reservations/Create"
 import TableCreate from "../Tables/Create";
 import NotFound from "./NotFound";
 import Seat from "../Reservations/Seat";
-import Search from "../Search/Search"
+import Search from "../Search/Search";
+import Edit from "../Reservations/Edit";
 import { today } from "../utils/date-time";
 
 /**
@@ -27,6 +28,9 @@ function Routes() {
       </Route>
       <Route path="/reservations/:reservation_id/seat">
         <Seat />
+      </Route>
+      <Route path="/reservations/:reservation_id/edit">
+        <Edit />
       </Route>
       <Route path="/reservations/new">
         <ReservationCreate />
