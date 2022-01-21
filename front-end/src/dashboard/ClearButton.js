@@ -9,7 +9,7 @@ function ClearButton({ table_id }) {
         "Is this table ready to seat new guests? This cannot be undone."
       )
     ) {
-        await clearTable(table_id);
+      await clearTable(table_id);
       history.push("/");
     }
   }

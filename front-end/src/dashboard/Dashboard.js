@@ -34,6 +34,7 @@ function Dashboard({ date }) {
   const [reservationsError, setReservationsError] = useState(null);
 
   useEffect(loadDashboard, [date]);
+  console.log("rerendered")
 
   function loadDashboard() {
     const abortController = new AbortController();
@@ -76,7 +77,6 @@ function Dashboard({ date }) {
         <td>
           {reservation.status === "booked" ? (
             <a
-              // onClick={() => changeStatus(reservation.reservation_id)}
               className="btn btn-primary"
               href={`/reservations/${reservation.reservation_id}/seat`}
             >
