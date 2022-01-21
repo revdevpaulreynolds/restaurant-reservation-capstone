@@ -34,7 +34,6 @@ function Dashboard({ date }) {
   const [reservationsError, setReservationsError] = useState(null);
 
   useEffect(loadDashboard, [date]);
-  console.log("rerendered")
 
   function loadDashboard() {
     const abortController = new AbortController();

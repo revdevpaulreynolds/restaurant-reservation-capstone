@@ -13,12 +13,14 @@ function Search() {
   }
 
   async function submitHandler(evt) {
+    const ac = new AbortController();
     evt.preventDefault();
     evt.stopPropagation();
     setNotFoundError(null);
-    const results = await search(searchNumber);
+    const results = await search(searchNumber, ac.signal);
     if (!results.length) setNotFoundError({ message: "No reservations found" });
     setSearchResults(results);
+    return () => ac.abort();
   }
 
   return (

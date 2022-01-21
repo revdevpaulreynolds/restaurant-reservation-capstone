@@ -14,11 +14,13 @@ function ReservationCreate() {
       ""
     );
     reservation.people = Number(reservation.people);
-    await createReservation(reservation)
+    const ac = new AbortController();
+    await createReservation(reservation, ac.signal)
       .then(() =>
         history.push(`/dashboard?date=${reservation.reservation_date}`)
       )
       .catch(setCreateError);
+    return () => ac.abort();
   }
 
   return (

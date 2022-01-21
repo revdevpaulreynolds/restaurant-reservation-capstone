@@ -13,7 +13,7 @@ function Seat() {
 
   function loadReservation() {
     const ac = new AbortController();
-    getReservation(reservation_id).then(setReservation).catch(setError);
+    getReservation(reservation_id, ac.signal).then(setReservation).catch(setError);
     return () => ac.abort();
   }
 
@@ -43,6 +43,7 @@ function Seat() {
     await seatReservation(reservation_id, formData.table_id, ac.signal)
       .then(() => history.push("/dashboard"))
       .catch(setError);
+    return () => ac.abort();
   }
 
   let tableSelect = tables.map((table) => (

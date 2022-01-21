@@ -21,12 +21,15 @@ function TableCreate() {
   const history = useHistory();
 
   async function handleSubmit(evt) {
+    const ac = new AbortController();
       evt.preventDefault();
       evt.stopPropagation();
       table.capacity = Number(table.capacity);
-    await createTable(table)
-        .then(res => history.push("/dashboard"))
+    await createTable(table, ac.signal)
+        .then(() => history.push("/dashboard"))
         .catch(setTableError);
+
+      return () => ac.abort();
   }
 
   return (
