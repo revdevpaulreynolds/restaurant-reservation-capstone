@@ -61,13 +61,20 @@ function Dashboard({ date }) {
     );
   });
 
+  function addDashes(phoneNumber) {
+    phoneNumber = phoneNumber.replace(/[^0-9.]/g, "");
+    const dashedPhoneNumber =
+      phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3, 6) + "-" + phoneNumber.slice(6);
+    return dashedPhoneNumber;
+  }
+
   const display = result.map((reservation) => {
     return (
       <tr key={reservation.reservation_id}>
         <td>{reservation.reservation_id}</td>
         <td>{reservation.first_name}</td>
         <td>{reservation.last_name}</td>
-        <td>{reservation.mobile_number}</td>
+        <td>{addDashes(reservation.mobile_number)}</td>
         <td>{formatAsTime(reservation.reservation_time)}</td>
         <td>{reservation.people}</td>
         <td data-reservation-id-status={reservation.reservation_id}>

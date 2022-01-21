@@ -71,9 +71,11 @@ function ReservationForm({
                 value={reservation.mobile_number}
                 required={true}
                 placeholder="000-000-0000"
+                // minLength="10" saving this for real live version, it currently breaks tests
                 maxLength="12"
                 onChange={changeHandler}
               />
+              <small>Area code required</small>
             </div>
           </div>
           <div className="row">
