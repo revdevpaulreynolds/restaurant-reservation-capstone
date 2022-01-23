@@ -1,11 +1,11 @@
 {
   "name": "starter-restaurant-reservation",
   "version": "1.0.0",
-  "description": "Starter project restaurant reservation system",
+  "description": "Periodic Tables restaurant reservation system capstone project",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Thinkful-Ed/starter-restaurant-reservation"
+    "url": "https://github.com/revdevpaulreynolds/starter-restaurant-reservation/"
   },
   "scripts": {
     "build": "npm -prefix front-end run build",
@@ -46,7 +46,7 @@
     "test:frontend:watch": "npm test --prefix ./front-end"
   },
   "keywords": [],
-  "author": "Thinkful, Inc.",
+  "author": "Paul Reynolds",
   "license": "UNLICENSED",
   "dependencies": {
     "knex": "^0.95.15"

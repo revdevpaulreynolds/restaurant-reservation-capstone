@@ -88,6 +88,7 @@ function validateNewReservation(req, res, next) {
     "reservation_date",
     "reservation_time",
     "people",
+    "status"
   ]
 
   requiredFields.forEach(field => {
