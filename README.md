@@ -46,7 +46,7 @@ DELETE requests - This removes the reservation_id from the table, and changes th
 
 ## User guide
 
-![Screenshot](screenshots/Screenshot%202022-01-22%209.27.12%20PM.png)
+![Screenshot](./screenshots/Screenshot%202022-01-22%209.27.12%20PM.png)
 Displays all reservations on a given day with navigation buttons to change the date. This is the default page when visiting the app.
 
 Each reservation that has a status of "booked" will display a button to Seat, as well as buttons to Edit or Cancel the given reservation.
@@ -55,7 +55,7 @@ The tables information below displays each table in the restaurant along with it
 
 Going to the "New Reservation" page in the navigation shows this page:
 
-![Screenshot](screenshots/Screenshot%202022-01-22%209.35.03%20PM.png)
+![Screenshot](./screenshots/Screenshot%202022-01-22%209.35.03%20PM.png)
 
 Adding a new reservation that meets the requirements and clicking Submit will save the reservation and redirect back to the dashboard page for the reservation made.
 
