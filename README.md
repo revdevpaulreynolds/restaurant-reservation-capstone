@@ -44,9 +44,33 @@ PUT requests - This adds a reservation_id to the table, which indicates which pa
 
 DELETE requests - This removes the reservation_id from the table, and changes the status of the reservation to "finished"
 
-## Screenshots of application
+## User guide
 
-## Summary section explaining features from a user standpoint
+![Screenshot](screenshots/Screenshot%202022-01-22%209.27.12%20PM.png)
+Displays all reservations on a given day with navigation buttons to change the date. This is the default page when visiting the app.
+
+Each reservation that has a status of "booked" will display a button to Seat, as well as buttons to Edit or Cancel the given reservation.
+
+The tables information below displays each table in the restaurant along with its availability status.
+
+Going to the "New Reservation" page in the navigation shows this page:
+
+![Screenshot](screenshots/Screenshot%202022-01-22%209.35.03%20PM.png)
+
+Adding a new reservation that meets the requirements and clicking Submit will save the reservation and redirect back to the dashboard page for the reservation made.
+
+Once back on the main page, to seat a reservation, click the Seat button next to an eligible reservation, which will bring you to this screen:
+
+![Screenshot](screenshots/Screenshot%202022-01-22%209.40.58%20PM.png)
+
+Once an eligible table with an eligible amount of seats has been selected, the party can be seated, and the button is hidden from the dashboard view.
+
+To add a new table, click the New Table link on the left, and you will see this screen:
+
+![Screenshot](screenshots/Screenshot%202022-01-22%209.43.15%20PM.png)
+
+As long as the table name is 2+ characters and the capacity is more than 1, the new table can be created.
+
 
 ## Technology used
 
