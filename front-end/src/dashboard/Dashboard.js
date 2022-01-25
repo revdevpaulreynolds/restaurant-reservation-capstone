@@ -19,14 +19,14 @@ import TableList from "./TableList";
  * @returns {JSX.Element}
  */
 function Dashboard({ date }) {
-  // let isToday = true; // Sometime in the future I want the seat button
+  let isToday = true; // Sometime in the future I want the seat button
   // to only display if the date is today
   const query = useQuery();
   const getDate = query.get("date");
 
   if (getDate && getDate !== today()) {
     date = getDate;
-    // isToday = false;
+    isToday = false;
   }
 
   const [reservations, setReservations] = useState([]);
@@ -79,6 +79,7 @@ function Dashboard({ date }) {
         <button
           className="btn btn-primary"
           onClick={() => history.push("/dashboard")}
+          disabled={date === today()}
         >
           Today
         </button>
@@ -86,7 +87,7 @@ function Dashboard({ date }) {
           Forward
         </button>
       </div>
-      <DisplayReservations reservations={result} />
+      <DisplayReservations reservations={result} isToday={isToday}/>
       {!reservations.length && <h3>No reservations on this date</h3>}
       <TableList />
     </main>
