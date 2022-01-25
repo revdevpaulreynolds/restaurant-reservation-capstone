@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import {
-  formatAsTime,
   formatAsDate,
   previous,
   next,
   today,
 } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
+import DisplayReservations from "./DisplayReservations";
 import TableList from "./TableList";
-import CancelButton from "../Reservations/CancelButton";
 
 /**
  * Defines the dashboard page.
@@ -61,53 +60,7 @@ function Dashboard({ date }) {
     );
   });
 
-  function addDashes(phoneNumber) {
-    phoneNumber = phoneNumber.replace(/[^0-9.]/g, "");
-    const dashedPhoneNumber =
-      phoneNumber.slice(0, 3) + "-" + phoneNumber.slice(3, 6) + "-" + phoneNumber.slice(6);
-    return dashedPhoneNumber;
-  }
 
-  const display = result.map((reservation) => {
-    return (
-      <tr key={reservation.reservation_id}>
-        <td>{reservation.reservation_id}</td>
-        <td>{reservation.first_name}</td>
-        <td>{reservation.last_name}</td>
-        <td>{addDashes(reservation.mobile_number)}</td>
-        <td>{formatAsTime(reservation.reservation_time)}</td>
-        <td>{reservation.people}</td>
-        <td data-reservation-id-status={reservation.reservation_id}>
-          {reservation.status}
-        </td>
-        <td>
-          {reservation.status === "booked" ? (
-            <a
-              className="btn btn-primary"
-              href={`/reservations/${reservation.reservation_id}/seat`}
-            >
-              Seat
-            </a>
-          ) : null}
-        </td>
-        <td>
-          {" "}
-          {reservation.status === "booked" ? (
-            <Link
-              to={{
-                pathname: `/reservations/${reservation.reservation_id}/edit`,
-              }}
-            >
-              <button className="btn btn-secondary">Edit</button>
-            </Link>
-          ) : null}
-        </td>
-        <td>
-          <CancelButton reservation_id={reservation.reservation_id} />
-        </td>
-      </tr>
-    );
-  });
 
   return (
     <main>
@@ -133,23 +86,7 @@ function Dashboard({ date }) {
           Forward
         </button>
       </div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Mobile number</th>
-            <th scope="col">Reservation time</th>
-            <th scope="col">Party size</th>
-            <th scope="col">Status</th>
-            <th scope="col">Seat party</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Cancel</th>
-          </tr>
-        </thead>
-        <tbody>{reservations.length > 0 && display}</tbody>
-      </table>
+      <DisplayReservations reservations={result} />
       {!reservations.length && <h3>No reservations on this date</h3>}
       <TableList />
     </main>

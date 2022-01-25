@@ -18,12 +18,16 @@ function TableList() {
   let display;
   if (tables.length) {
     display = tables.map((table) => {
+        let badge;
+        table.reservation_id ? badge = "badge badge-secondary" : badge = "badge badge-primary";
       return (
         <tr key={table.table_id}>
           <td>{table.table_name}</td>
           <td>{table.capacity}</td>
           <td data-table-id-status={table.table_id}>
+            <h6 className={badge}>
             {table.reservation_id ? "Occupied" : "Free"}
+            </h6>
           </td>
           <td>
             {table.reservation_id ? (
