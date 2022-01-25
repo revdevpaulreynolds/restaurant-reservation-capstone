@@ -30,6 +30,9 @@ function TableList() {
             </h6>
           </td>
           <td>
+              {table.reservation_id}
+          </td>
+          <td>
             {table.reservation_id ? (
               <ClearButton table_id={table.table_id} />
             ) : null}
@@ -48,6 +51,7 @@ function TableList() {
             <th scope="col">Table</th>
             <th scope="col">Capacity</th>
             <th scope="col">Occupied</th>
+            <th scope="col">Party</th>
             <th scope="col">Clear table</th>
           </tr>
         </thead>
