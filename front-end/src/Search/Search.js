@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { search } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import DisplaySearch from "./DisplaySearch";
+import DisplayReservations from "../dashboard/DisplayReservations";
 
 function Search() {
   const [searchNumber, setSearchNumber] = useState("");
@@ -45,7 +45,7 @@ function Search() {
         </form>
       </div>
       <ErrorAlert error={notFoundError} />
-      <DisplaySearch searchResults={searchResults}/>
+      <DisplayReservations reservations={searchResults}/>
     </div>
   );
 }
