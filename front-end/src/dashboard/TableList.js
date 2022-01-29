@@ -57,7 +57,7 @@ function TableList() {
         </thead>
         <tbody>{tables.length ? display : null}</tbody>
       </table>
-      {!tables.length && "Please add at least 1 table"}
+      {!tables.length && "Tables are loading..."}
     </div>
   );
 }
