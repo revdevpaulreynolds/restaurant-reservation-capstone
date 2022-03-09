@@ -197,5 +197,5 @@ module.exports = {
   create: [validateNewReservation, asyncErrorBoundary(create)],
   read: [asyncErrorBoundary(reservationExists), read],
   updateStatus: [asyncErrorBoundary(validateExistingReservation), asyncErrorBoundary(updateStatus)],
-  update: [validateNewReservation, asyncErrorBoundary(reservationExists), asyncErrorBoundary(update)], // still need to add update function here
+  update: [validateNewReservation, asyncErrorBoundary(reservationExists), asyncErrorBoundary(update)],
 };
